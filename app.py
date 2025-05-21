@@ -75,7 +75,6 @@ Answer:"""
                 except Exception as e:
                     return f"Error: {e}"
 
-            # RAG logic
             docs = st.session_state.vector_index.similarity_search(user_question, k=4)
             answer = query_lmstudio_rag(user_question, docs)
             sources = list({doc.metadata.get("source", "Unknown") for doc in docs})
