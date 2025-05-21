@@ -48,7 +48,7 @@ if st.session_state.vector_index:
     
     if user_question:
         with st.spinner("Searching and generating answer..."):
-            def query_lmstudio_rag(prompt, retrieved_docs, model="deepseek-r1-distill-qwen-7b"):
+            def query_lmstudio(prompt, retrieved_docs, model="deepseek-r1-distill-qwen-7b"):
                 url = "http://localhost:1234/v1/chat/completions"
                 headers = {"Content-Type": "application/json"}
 
@@ -76,7 +76,7 @@ Answer:"""
                     return f"Error: {e}"
 
             docs = st.session_state.vector_index.similarity_search(user_question, k=4)
-            answer = query_lmstudio_rag(user_question, docs)
+            answer = query_lmstudio(user_question, docs)
             sources = list({doc.metadata.get("source", "Unknown") for doc in docs})
 
             st.subheader("Answer")
